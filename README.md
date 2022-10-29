@@ -1,4 +1,4 @@
 ### Starting project to control expenses
 
 ## Libraries
-  - BUILDING
+  - npm i styled-components
