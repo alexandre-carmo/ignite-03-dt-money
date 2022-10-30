@@ -5,3 +5,4 @@
   - npm i phosphor-react
   - npm i @radix-ui/react-dialog
   - npm i @radix-ui/react-radio-group
+  - npm i json-server -D
