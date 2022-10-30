@@ -4,7 +4,7 @@
       "id": 1,
       "description": "Desenvolvimento de site",
       "type": "income",
-      "category": "Venda",
+      "category": "Entrada",
       "price": 1400,
       "createdAt": "2022-10-27T14:49:29.702Z"
     },
@@ -12,7 +12,7 @@
       "id": 2,
       "description": "Desenvolvimento de aplicativo",
       "type": "income",
-      "category": "Venda",
+      "category": "Entrada",
       "price": 1000,
       "createdAt": "2022-10-28T14:49:29.702Z"
     },
@@ -20,7 +20,7 @@
       "id": 3,
       "description": "Compra de um computador",
       "type": "outcome",
-      "category": "Compra",
+      "category": "Saída",
       "price": 1400,
       "createdAt": "2022-10-29T14:49:29.702Z"
     },
@@ -28,7 +28,7 @@
       "id": 4,
       "description": "Desenvolvimento API",
       "type": "income",
-      "category": "Venda",
+      "category": "Entrada",
       "price": 1400,
       "createdAt": "2022-10-30T14:49:29.702Z"
     }

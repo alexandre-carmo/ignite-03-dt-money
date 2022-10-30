@@ -37,4 +37,5 @@ interface PriceHighlightProps {
 
 export const PriceHighlight = styled.span<PriceHighlightProps>`
   color: ${props => props.variant === 'income' ? props.theme["green-300"] : props.theme["red-300"]};
+  margin-left: ${props => props.variant === 'income' ? '0' : '-0.5rem'}
 `
