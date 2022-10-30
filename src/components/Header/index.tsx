@@ -6,7 +6,9 @@ export function Header() {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <img src={logo} alt="" />
+        <div>
+          <img src={logo} alt="" /> DT Money
+        </div>
 
         <NewTransactionButton>Nova transação</NewTransactionButton>
       </HeaderContent>
