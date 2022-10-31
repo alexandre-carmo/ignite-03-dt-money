@@ -2,8 +2,29 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
 import { TransactionType, TransactionTypeButton } from './styles';
 import { CloseButton, Content, Overlay } from './styles';
+import * as zod from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+
+// Validação form
+const newTransactionFormSchema = zod.object({
+  description: zod.string(),
+  price: zod.number(),
+  category: zod.string(),
+  // type: zod.enum(['income', 'outcome']),
+})
+
+type NewTransactionFormInputs = zod.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
+  const { register, handleSubmit, formState: { isSubmitting } } = useForm<NewTransactionFormInputs>({
+    resolver: zodResolver(newTransactionFormSchema)
+  })
+
+  function handleCreateNewTransaction(data: NewTransactionFormInputs) {
+    console.log(data)
+  }
+
   return (
     <Dialog.Portal>
       <Overlay />
@@ -12,10 +33,25 @@ export function NewTransactionModal() {
         <Dialog.Title>Nova transação</Dialog.Title>
         <CloseButton><X size={24} /></CloseButton>
 
-        <form action="">
-          <input type="text" placeholder="Descrição" required />
-          <input type="number" placeholder="Preço" required />
-          <input type="text" placeholder="Categoria" required />
+        <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
+          <input
+            type="text"
+            placeholder="Descrição"
+            required
+            {...register('description')}
+          />
+          <input
+            type="number"
+            placeholder="Preço"
+            required
+            {...register('price', { valueAsNumber: true })}
+          />
+          <input
+            type="text"
+            placeholder="Categoria"
+            required
+            {...register('category')}
+          />
 
           <TransactionType>
             <TransactionTypeButton variant='income' value="income">
@@ -28,7 +64,7 @@ export function NewTransactionModal() {
             </TransactionTypeButton>
           </TransactionType>
 
-          <button type="submit">
+          <button type="submit" disabled={isSubmitting}>
             Cadastrar
           </button>
         </form>
