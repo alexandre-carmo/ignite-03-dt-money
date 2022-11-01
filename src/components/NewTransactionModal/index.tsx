@@ -1,10 +1,13 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
-import { TransactionType, TransactionTypeButton } from './styles';
-import { CloseButton, Content, Overlay } from './styles';
 import * as zod from "zod";
+import * as Dialog from '@radix-ui/react-dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { TransactionsContext } from '../../contexts/TransactionsContext';
+
+import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
+import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles';
 
 // Validação form
 const newTransactionFormSchema = zod.object({
@@ -17,21 +20,32 @@ const newTransactionFormSchema = zod.object({
 type NewTransactionFormInputs = zod.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
+  const { createTransaction } = useContext(TransactionsContext);
+
   const {
     control,
     register,
     handleSubmit,
-    formState: { isSubmitting }
+    formState: { isSubmitting },
+    reset
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
     defaultValues: {
       type: 'income'
     }
+  });
 
-  })
+  async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
+    const { description, price, category, type } = data;
 
-  function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    console.log(data)
+    createTransaction({
+      description,
+      price,
+      category,
+      type,
+    });
+
+    reset();
   }
 
   return (
