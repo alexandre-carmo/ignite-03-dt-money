@@ -2,12 +2,12 @@ import * as zod from "zod";
 import * as Dialog from '@radix-ui/react-dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { TransactionsContext } from '../../contexts/TransactionsContext';
 
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
 import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles';
+import { useContextSelector } from "use-context-selector";
 
 // Validação form
 const newTransactionFormSchema = zod.object({
@@ -20,7 +20,9 @@ const newTransactionFormSchema = zod.object({
 type NewTransactionFormInputs = zod.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
-  const { createTransaction } = useContext(TransactionsContext);
+  const createTransaction = useContextSelector(TransactionsContext, (context) => {
+    return context.createTransaction;
+  });
 
   const {
     control,
